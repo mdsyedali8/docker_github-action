@@ -13,7 +13,7 @@
           API_URL: some-url.com
         ports:
           - 80
-        volumes:
+        # volumes:
           # - vol_name:/path/in/container   #---- Names Vol
           # - /path/to/container     #---- Anonymous vol
           # - /path/in/host:/path/on/container     #---- Bind mounts--host machine path mapped to path in container
