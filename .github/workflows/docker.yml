@@ -27,5 +27,5 @@
           #display the content of a file that lives in etc/os-release  
 
         - name: Log Env                     #---to confirm inside container access to env var
-        - run: echo $API_URL                #--- all these steps will run inside of container                
+          run: echo $API_URL                #--- all these steps will run inside of container                
 
