@@ -1,3 +1,6 @@
+  
+  #Docker for entire job
+  
   name: Docker
   on: [ workflow_dispatch]
 
@@ -14,10 +17,10 @@
         ports:
           - 80
         # volumes:
-          # - vol_name:/path/in/container   #---- Names Vol
-          # - /path/to/container     #---- Anonymous vol
-          # - /path/in/host:/path/on/container     #---- Bind mounts--host machine path mapped to path in container
-        # options: -- cpus 1  #---- any other option post to docker create cmd, except n/w and entry point
+          # - vol_name:/path/in/container   #---- Names Vol- data persistence-isolated from the host machine but can be shared across container runs if needed.
+          # - /path/to/container     #---- Anonymous vol- temporary storage-
+          # - /path/in/host:/path/on/container     #---- Bind mounts--host machine path mapped to path in container-Provide direct access to files on the host machine, useful for sharing configuration files, accessing code, and debugging.
+        # options: -- cpus 1  #---- any other option post to docker create cmd, except n/w and entry point-  limits the container to use a maximum of 1 CPU.
       
       steps: #steps added will run directly inside container
         - name: Log Node & OS version
@@ -28,4 +31,18 @@
 
         - name: Log Env                     #---to confirm inside container access to env var
           run: echo $API_URL                #--- all these steps will run inside of container                
+
+        #Docker for specific step
+
+        - name: conatiner in a step
+          uses: docker://node:20-alpine3.19
+          # with:
+          #   entrypoint: #path of the node install in my local/ubuntu - type node
+          #   args:  -p 2+3
+        - name: Log node version
+          uses: docker://node:20-alpine3.19
+          with:
+            args: -v
+
+            # node:22-alpine3.19 and docker://node:20-alpine3.19 (run on host machine as sibling to 22-alpine)same n/w and vol mounts-communicate
 
