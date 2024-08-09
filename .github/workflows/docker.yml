@@ -30,7 +30,9 @@
           #display the content of a file that lives in etc/os-release  
 
         - name: Log Env                     #---to confirm inside container access to env var
-          run: echo $API_URL                #--- all these steps will run inside of container                
+          run: echo $API_URL                #--- all these steps will run inside of container
+        - name: create a file                #--- create file in working dir 
+          run: echo 'some text' > text.txt   #---going to run in working dir of 22-container
 
         #Docker for specific step
 
@@ -46,3 +48,11 @@
 
             # node:22-alpine3.19 and docker://node:20-alpine3.19 (run on host machine as sibling to 22-alpine)same n/w and vol mounts-communicate
 
+        - name: show file contents
+          uses: docker://node:20-alpine3.19
+          with:
+            entrypoint: cat
+            args: text.txt
+#the file is in another container 22, can access this in this container too 20- same volume with host machine. 
+
+        
