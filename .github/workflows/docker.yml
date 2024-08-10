@@ -59,7 +59,7 @@
           uses: docker://node:20-alpine3.19
           with:
             entrypoint: ./script.sh
-            arg: "some string"
+            args: "some string"
             
 
         
